@@ -18,6 +18,7 @@
         <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
         <spring.version>4.3.2.RELEASE</spring.version>
         <skip.module.test>true</skip.module.test>
+        <me.commons.version>1.1</me.commons.version>
     </properties>
 
     <dependencies>
@@ -69,9 +70,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.junbin.utility</groupId>
+            <groupId>me.junbin.commons</groupId>
             <artifactId>commons-utility</artifactId>
-            <version>0.1.0-RELEASE</version>
+            <version>${me.commons.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>

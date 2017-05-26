@@ -34,11 +34,6 @@ public class Page<T> implements Serializable {
     private final int reqPageSize;
 
     /**
-     * 当前请求的页码导航数量，即可以导航到前/后多少条
-     */
-    private final int reqPagingNavigationNum;
-
-    /**
      * 当前页的页码偏移量，0 代表 第一页，1 代表第二页，请求正常的情况下该值必然与 {@link #reqPageOffset} 一致
      */
     private final int curPageOffset;
@@ -47,6 +42,11 @@ public class Page<T> implements Serializable {
      * 当前页的页面数据量，在尾页的时候，该值可能与 {@link #reqPageSize} 不等
      */
     private final int curPageSize;
+
+    /**
+     * 当前请求的页码导航数量，即可以导航到前/后多少条
+     */
+    private final int reqPagingNavigationNum;
 
     /**
      * 当前页是否有上一页
@@ -206,7 +206,7 @@ public class Page<T> implements Serializable {
         private int totalPages;
         private int reqPageOffset;
         private int reqPageSize;
-        private int reqPagingNavigationNum = 10;
+        private int reqPagingNavigationNum = PageRequest.DEFAULT_NAVIGATION_NUM;
         private int curPageOffset;
         private int curPageSize;
         private int[] previousNavigation;
@@ -281,6 +281,10 @@ public class Page<T> implements Serializable {
             this.totalElements = contentSize != 0 && previousPagesTotalSize + reqPageSize
                     > totalElements ? previousPagesTotalSize + contentSize : totalElements;
             this.content = content;
+        }
+
+        public Page<T> build() {
+            return create();
         }
 
         public Page<T> create() {
