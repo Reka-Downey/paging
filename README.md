@@ -1,9 +1,9 @@
 # 分页封装模型
 ## 用法
 ```java
-		List<String> content = new ArrayList<>(Arrays.asList("Reka", "雷卡", "Rachel", "瑞秋"));
-		// 通过 Page.custom(List<T>) 得到创建者，随后通过创建者模式构造分页数据
-		Page<String> page = Page.custom(content)
+        List<String> content = new ArrayList<>(Arrays.asList("Reka", "雷卡", "Rachel", "瑞秋"));
+        // 通过 Page.custom(List<T>) 得到创建者，随后通过创建者模式构造分页数据
+        Page<String> page = Page.custom(content)
                                 .pageOffset(1)
                                 .pageSize(5)
                                 // 根据 pageOffset、pageSize、content.size()，totalElements 被调整成 9
@@ -24,4 +24,5 @@
                 .pageOffset(3)
                 .pageSize(7)
                 .build();
+
 ```
