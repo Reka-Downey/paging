@@ -1,6 +1,5 @@
 package me.junbin.commons.page;
 
-import java.util.Objects;
 
 /**
  * @author : Zhong Junbin
@@ -59,6 +58,8 @@ public class PageRequest {
         return pagingNavigationNum;
     }
 
+/*
+    // JDK 7+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -72,6 +73,27 @@ public class PageRequest {
     @Override
     public int hashCode() {
         return Objects.hash(pageOffset, pageSize, pagingNavigationNum);
+    }
+*/
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PageRequest that = (PageRequest) o;
+
+        return pageOffset == that.pageOffset
+                && pageSize == that.pageSize
+                && pagingNavigationNum == that.pagingNavigationNum;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = pageOffset;
+        result = 31 * result + pageSize;
+        result = 31 * result + pagingNavigationNum;
+        return result;
     }
 
 }

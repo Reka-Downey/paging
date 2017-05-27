@@ -3,7 +3,6 @@ package me.junbin.commons.page;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @author : Zhong Junbin
@@ -34,7 +33,7 @@ public class Page<T> implements Serializable {
     private final int reqPageSize;
 
     /**
-     * 当前页的页码偏移量，0 代表 第一页，1 代表第二页，请求正常的情况下该值必然与 {@link #reqPageOffset} 一致
+     * 当前页的页码偏移量，0 代表 第一页，1 代表第二页，正常情况下该值必然与 {@link #reqPageOffset} 一致
      */
     private final int curPageOffset;
 
@@ -177,7 +176,7 @@ public class Page<T> implements Serializable {
     }
 
     public boolean hasPreviousPage() {
-        return isHasPreviousPage();
+        return hasPreviousPage;
     }
 
     public boolean isHasNextPage() {
@@ -185,7 +184,7 @@ public class Page<T> implements Serializable {
     }
 
     public boolean hasNextPage() {
-        return isHasNextPage();
+        return hasNextPage;
     }
 
     public boolean isFirstPage() {
@@ -246,7 +245,7 @@ public class Page<T> implements Serializable {
         }
 
         public Builder<T> pageRequest(final PageRequest pageRequest) {
-            this.pageRequest = Objects.requireNonNull(pageRequest);
+            this.pageRequest = requireNonNull(pageRequest);
             return this;
         }
 
@@ -256,7 +255,7 @@ public class Page<T> implements Serializable {
         }
 
         public Builder<T> content(List<T> content) {
-            this.content = Objects.requireNonNull(content);
+            this.content = requireNonNull(content);
             return this;
         }
 
@@ -323,12 +322,12 @@ public class Page<T> implements Serializable {
 
 
         private void normalize() {
-            Objects.requireNonNull(content);
+            requireNonNull(content);
             int contentSize = content.size();
             if (totalElements == 0) {
                 totalElements = contentSize;
             }
-            if (Objects.nonNull(pageRequest)) {
+            if (pageRequest != null) {
                 preBuild(pageRequest, totalElements, content);
                 return;
             }
@@ -366,4 +365,9 @@ public class Page<T> implements Serializable {
         }
     }
 
+    private static <T> T requireNonNull(T obj) {
+        if (obj == null)
+            throw new IllegalArgumentException("argument must not be null");
+        return obj;
+    }
 }
